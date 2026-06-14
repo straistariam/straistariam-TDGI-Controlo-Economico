@@ -1,0 +1,203 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: "Segoe UI", Arial, sans-serif;
+  min-height: 100vh;
+  background: #f2f5f8;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.login-page {
+  width: 100%;
+  padding: 32px;
+}
+
+.login-wrapper {
+  max-width: 1180px;
+  min-height: 680px;
+  margin: auto;
+  display: grid;
+  grid-template-columns: 1.05fr 0.95fr;
+  background: #ffffff;
+  border-radius: 18px;
+  overflow: hidden;
+  box-shadow: 0 24px 60px rgba(15, 35, 60, 0.16);
+}
+
+.login-image {
+  background:
+    linear-gradient(to bottom, rgba(9, 28, 52, 0.05), rgba(9, 28, 52, 0.88)),
+    url("../assets/DJI_0634_edit_LR.jpg");
+  background-size: cover;
+  background-position: center;
+  position: relative;
+}
+
+.image-overlay {
+  position: absolute;
+  left: 48px;
+  bottom: 48px;
+  color: #ffffff;
+  max-width: 420px;
+}
+
+.image-overlay h2 {
+  font-size: 30px;
+  margin-bottom: 12px;
+}
+
+.image-overlay p {
+  font-size: 17px;
+  line-height: 1.6;
+  opacity: 0.92;
+}
+
+.login-panel {
+  padding: 72px 72px 40px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.logo {
+  width: 230px;
+  margin: 0 auto 36px;
+  display: block;
+}
+
+h1 {
+  text-align: center;
+  color: #0d2344;
+  font-size: 28px;
+  letter-spacing: 0.5px;
+  margin-bottom: 10px;
+}
+
+.subtitle {
+  text-align: center;
+  color: #667085;
+  font-size: 16px;
+  margin-bottom: 38px;
+}
+
+label {
+  display: block;
+  color: #344054;
+  font-weight: 600;
+  margin-bottom: 8px;
+  font-size: 14px;
+}
+
+.input-box {
+  height: 52px;
+  border: 1px solid #d0d7e2;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  margin-bottom: 22px;
+  background: #ffffff;
+  transition: 0.2s ease;
+}
+
+.input-box:focus-within {
+  border-color: #1d4f7a;
+  box-shadow: 0 0 0 4px rgba(29, 79, 122, 0.12);
+}
+
+.input-box span {
+  width: 50px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #667085;
+  font-size: 16px;
+}
+
+.input-box input {
+  flex: 1;
+  border: none;
+  outline: none;
+  height: 100%;
+  font-size: 15px;
+  color: #101828;
+}
+
+.input-box button {
+  background: transparent;
+  border: none;
+  color: #667085;
+  cursor: pointer;
+  padding: 0 15px;
+  font-size: 16px;
+}
+
+.options {
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: 20px;
+}
+
+.options a {
+  color: #1d4f7a;
+  text-decoration: none;
+  font-weight: 600;
+}
+
+.options a:hover {
+  text-decoration: underline;
+}
+
+#errorMessage {
+  min-height: 20px;
+  text-align: center;
+  color: #c62828;
+  font-size: 14px;
+  margin-bottom: 8px;
+}
+
+.login-btn {
+  width: 100%;
+  height: 54px;
+  border: none;
+  border-radius: 10px;
+  background: #0d2b57;
+  color: #ffffff;
+  font-size: 17px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: 0.2s ease;
+}
+
+.login-btn:hover {
+  background: #123b72;
+  transform: translateY(-1px);
+}
+
+footer {
+  margin-top: 54px;
+  text-align: center;
+  color: #98a2b3;
+  font-size: 13px;
+}
+
+
+
+@media (max-width: 900px) {
+  .login-wrapper {
+    grid-template-columns: 1fr;
+  }
+
+  .login-image {
+    min-height: 260px;
+  }
+
+  .login-panel {
+    padding: 44px 30px;
+  }
+}

@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="pt">
+    <link rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Login | Análise 3D</title>
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+  <main class="login-page">
+    <section class="login-wrapper">
+
+      <div class="login-image">
+        <div class="image-overlay">
+          <h2>Controlo Económico</h2>
+          <p>Gestão e acompanhamento de contratos com rigor, transparência e eficiência.</p>
+        </div>
+      </div>
+
+      <div class="login-panel">
+        <img src="assets/TDGI_color.png" alt="TDGI" class="logo" />
+
+        <h1>LOGIN</h1>
+        <p class="subtitle">Aceda à plataforma de Controlo Económico</p>
+
+        <form id="loginForm">
+          <label for="email">E-mail</label>
+          <div class="input-box">
+            <span><i class="fa-regular fa-envelope"></i></span>
+            <input type="email" id="email" placeholder="nome@tdgi.pt" required />
+          </div>
+
+          <label for="password">Palavra-passe</label>
+          <div class="input-box">
+            <span><i class="fa-solid fa-lock"></i></span>
+            <input type="password" id="password" placeholder="Insira a sua palavra-passe" required />
+            <button type="button" id="togglePassword">
+                <i class="fa-regular fa-eye"></i>
+            </button>
+          </div>
+
+          <div class="options">
+            <a href="#">Esqueci-me da palavra-passe</a>
+          </div>
+
+          <p id="errorMessage"></p>
+
+          <button type="submit" class="login-btn">Entrar</button>
+        </form>
+
+        <footer>© 2026 TDGI — Todos os direitos reservados.</footer>
+      </div>
+
+    </section>
+  </main>
+
+  <script src="js/login.js"></script>
+</body>
+</html>
