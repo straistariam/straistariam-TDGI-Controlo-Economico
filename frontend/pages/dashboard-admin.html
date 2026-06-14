@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dashboard Admin | Análise 3D</title>
+  <link rel="stylesheet" href="../css/dashboard.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+</head>
+<body>
+  <aside class="sidebar">
+    <img src="../assets/TDGI_color.png" class="logo" alt="TDGI">
+    <nav>
+      <a class="active"><i class="fa-solid fa-chart-line"></i> Dashboard</a>
+      <a><i class="fa-solid fa-users"></i> Utilizadores</a>
+      <a><i class="fa-solid fa-building"></i> Centros de custo</a>
+      <a><i class="fa-solid fa-file-contract"></i> Contratos</a>
+      <a><i class="fa-solid fa-gear"></i> Definições</a>
+    </nav>
+  </aside>
+
+  <main class="main-content">
+    <header class="topbar">
+      <div>
+        <h1>Dashboard Administrador</h1>
+        <p>Gestão geral da plataforma Análise 3D.</p>
+      </div>
+
+      <div class="user-box">
+        <div class="user-info">
+          <strong id="userName">Utilizador</strong>
+          <span id="userRole">ADMIN</span>
+        </div>
+        <button id="logoutBtn" class="logout-btn">Sair</button>
+      </div>
+    </header>
+
+    <section class="cards">
+      <div class="card"><span><i class="fa-solid fa-users"></i></span><div><h3>24</h3><p>Utilizadores</p></div></div>
+      <div class="card"><span><i class="fa-solid fa-building"></i></span><div><h3>6</h3><p>Centros de custo</p></div></div>
+      <div class="card"><span><i class="fa-solid fa-file-contract"></i></span><div><h3>32</h3><p>Contratos</p></div></div>
+      <div class="card"><span><i class="fa-solid fa-shield-halved"></i></span><div><h3>3</h3><p>Perfis ativos</p></div></div>
+    </section>
+
+    <section class="table-section">
+      <div class="section-header">
+        <h2>Utilizadores recentes</h2>
+        <button>Novo utilizador</button>
+      </div>
+
+      <table>
+        <thead>
+          <tr>
+            <th>Nome</th>
+            <th>Email</th>
+            <th>Perfil</th>
+            <th>Estado</th>
+            <th>Último acesso</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Ana-Maria Straistari</td>
+            <td>ana.maria@tdgi.pt</td>
+            <td>Gestor</td>
+            <td><span class="status validado">Ativo</span></td>
+            <td>14/06/2026</td>
+          </tr>
+          <tr>
+            <td>Diretor TDGI</td>
+            <td>diretor@tdgi.pt</td>
+            <td>Diretor</td>
+            <td><span class="status validado">Ativo</span></td>
+            <td>14/06/2026</td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+  </main>
+
+  <script src="../js/dashboard.js"></script>
+</body>
+</html>

@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dashboard Gestor | Análise 3D</title>
+  <link rel="stylesheet" href="../css/dashboard.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+</head>
+<body>
+  <aside class="sidebar">
+    <img src="../assets/TDGI_color.png" class="logo" alt="TDGI">
+    <nav>
+      <a class="active"><i class="fa-solid fa-chart-line"></i> Dashboard</a>
+      <a><i class="fa-solid fa-file-contract"></i> Meus contratos</a>
+      <a><i class="fa-solid fa-table"></i> Mapa económico</a>
+      <a><i class="fa-solid fa-clock-rotate-left"></i> Histórico</a>
+    </nav>
+  </aside>
+
+  <main class="main-content">
+    <header class="topbar">
+      <div>
+        <h1>Dashboard Gestor</h1>
+        <p>Controlo mensal dos contratos sob a sua responsabilidade.</p>
+      </div>
+
+      <div class="user-box">
+        <div class="user-info">
+          <strong id="userName">Utilizador</strong>
+          <span id="userRole">GESTOR</span>
+        </div>
+        <button id="logoutBtn" class="logout-btn">Sair</button>
+      </div>
+    </header>
+
+    <section class="cards">
+      <div class="card"><span><i class="fa-solid fa-file-contract"></i></span><div><h3>5</h3><p>Contratos atribuídos</p></div></div>
+      <div class="card"><span><i class="fa-solid fa-pen-to-square"></i></span><div><h3>2</h3><p>Em análise</p></div></div>
+      <div class="card"><span><i class="fa-solid fa-paper-plane"></i></span><div><h3>3</h3><p>Submetidos</p></div></div>
+      <div class="card"><span><i class="fa-solid fa-triangle-exclamation"></i></span><div><h3>1</h3><p>Com desvios</p></div></div>
+    </section>
+
+    <section class="table-section">
+      <div class="section-header">
+        <h2>Meus contratos</h2>
+        <button>Iniciar análise</button>
+      </div>
+
+      <table>
+        <thead>
+          <tr>
+            <th>Código</th>
+            <th>Contrato</th>
+            <th>Centro de Custo</th>
+            <th>Estado</th>
+            <th>Mês</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>CT-001</td>
+            <td>Manutenção Edifício Sede</td>
+            <td>CC-1001</td>
+            <td><span class="status pendente">Em análise</span></td>
+            <td>Junho 2026</td>
+          </tr>
+          <tr>
+            <td>CT-002</td>
+            <td>Serviços Técnicos Lisboa</td>
+            <td>CC-1002</td>
+            <td><span class="status validado">Submetido</span></td>
+            <td>Junho 2026</td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+  </main>
+
+  <script src="../js/dashboard.js"></script>
+</body>
+</html>
