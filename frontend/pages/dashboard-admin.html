@@ -44,8 +44,47 @@
 
     <section class="table-section">
       <div class="section-header">
+        <h2>Criar utilizador</h2>
+      </div>
+
+      <form id="createUserForm" class="user-form">
+        <div>
+          <label for="newNome">Nome</label>
+          <input type="text" id="newNome" placeholder="Nome do utilizador" required>
+        </div>
+
+        <div>
+          <label for="newEmail">Email</label>
+          <input type="email" id="newEmail" placeholder="nome@tdgi.pt" required>
+        </div>
+
+        <div>
+          <label for="newPassword">Password</label>
+          <input type="password" id="newPassword" placeholder="Password inicial" required>
+        </div>
+
+        <div>
+          <label for="newPerfil">Perfil</label>
+          <select id="newPerfil" required>
+            <option value="">Selecionar perfil</option>
+            <option value="GESTOR">Gestor</option>
+            <option value="DIRETOR">Diretor</option>
+            <option value="ADMIN">Administrador</option>
+          </select>
+        </div>
+
+        <button type="submit">
+          <i class="fa-solid fa-user-plus"></i>
+          Criar utilizador
+        </button>
+      </form>
+
+      <p id="createUserMessage"></p>
+    </section>
+
+    <section class="table-section">
+      <div class="section-header">
         <h2>Utilizadores recentes</h2>
-        <button>Novo utilizador</button>
       </div>
 
       <table>
