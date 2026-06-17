@@ -166,11 +166,16 @@ async function importarMovimentosAutomaticamente() {
         continue;
       }
 
+      console.log("Valor/MR:", linha["Valor/MR"]);
+      console.log("Tipo:", typeof linha["Valor/MR"]);
+      console.log("Convertido:", converterNumero(linha["Valor/MR"]));
+      console.log("-------------------");
+
       await pool.request()
         .input("CentroCusto", sql.NVarChar, linha["Centro custo"])
         .input("NumeroDocumentoReferencia", sql.NVarChar, linha["Nº doc.de referência"])
         .input("Referencia", sql.NVarChar, linha["Referência"])
-        .input("Estornado", sql.NVarChar, linha["Estornado"])
+        .input("Estornado", sql.Bit, linha["estornado"] === "X" ? 1 : 0)
         .input("NumeroRefEstorno", sql.NVarChar, linha["Nº ref.estorno"])
         .input("ClasseCusto", sql.NVarChar, linha["Classe de custo"])
         .input("DescricaoClasseCusto", sql.NVarChar, linha["Descr.classe custo"])
@@ -283,10 +288,20 @@ function converterNumero(valor) {
   if (valor === null || valor === undefined || valor === "") return null;
   if (typeof valor === "number") return valor;
 
-  const texto = String(valor)
+  let texto = String(valor)
+    .replace(/EUR/gi, "")
+    .replace(/\u00A0/g, " ")
     .replace(/\s/g, "")
-    .replace("EUR", "")
-    .replace(",", ".");
+    .trim();
+
+  // Formato inglês: 1,925.60
+  if (/^-?\d{1,3}(,\d{3})+(\.\d+)?$/.test(texto)) {
+    texto = texto.replace(/,/g, "");
+  }
+  // Formato português: 1 925,60 ou 1.925,60
+  else if (/^-?\d{1,3}([ .]\d{3})+,\d+$/.test(texto) || texto.includes(",")) {
+    texto = texto.replace(/\./g, "").replace(",", ".");
+  }
 
   const numero = Number(texto);
   return isNaN(numero) ? null : numero;
@@ -301,18 +316,171 @@ function converterInteiro(valor) {
 
 function converterData(valor) {
   if (!valor) return null;
-  if (valor instanceof Date) return valor;
 
-  const data = new Date(valor);
-  return isNaN(data.getTime()) ? null : data;
+  const texto = String(valor).trim();
+
+  const match = texto.match(/^(\d{1,2})\/(\d{1,2})\/(\d{2,4})/);
+  if (!match) return null;
+
+  const dia = Number(match[1]);
+  const mes = Number(match[2]);
+  let ano = Number(match[3]);
+
+  if (ano < 100) ano += 2000;
+
+  return new Date(Date.UTC(ano, mes - 1, dia, 0, 0, 0));
 }
+
+async function importarNotasEncomendaAutomaticamente() {
+  const pool = await sql.connect(dbConfig);
+  const pasta = await obterPastaDados(pool);
+
+  const ficheiro = fs
+    .readdirSync(pasta)
+    .find(f => f.toLowerCase().includes("total ne") && f.toLowerCase().endsWith(".csv"));
+
+  if (!ficheiro) {
+    console.log("Ficheiro Total NE.csv não encontrado.");
+    return { ficheirosImportados: 0, ficheirosIgnorados: 0, totalImportado: 0 };
+  }
+
+  const jaImportado = await pool.request()
+    .input("NomeFicheiro", sql.NVarChar, ficheiro)
+    .query(`
+      SELECT Id
+      FROM ImportacaoFicheiro
+      WHERE NomeFicheiro = @NomeFicheiro
+    `);
+
+  if (jaImportado.recordset.length > 0) {
+    console.log(`Notas de encomenda já importadas: ${ficheiro}`);
+    return { ficheirosImportados: 0, ficheirosIgnorados: 1, totalImportado: 0 };
+  }
+
+  console.log(`A importar notas de encomenda: ${ficheiro}`);
+
+  const caminho = path.join(pasta, ficheiro);
+  const workbook = XLSX.readFile(caminho, { raw: false });
+  const sheetName = workbook.SheetNames[0];
+  const sheet = workbook.Sheets[sheetName];
+
+  const linhas = XLSX.utils.sheet_to_json(sheet, {
+    defval: null,
+    raw: false
+  });
+
+  let totalImportado = 0;
+
+  for (const linha of linhas) {
+    const centroCusto = linha["Centro de Custo"];
+
+    if (centroCusto === null || centroCusto === undefined || centroCusto === "") {
+      continue;
+    }
+
+    await pool.request()
+      .input("DataCriacaoItem", sql.DateTime, converterData(linha["Data de Criação de Item"]))
+      .input("NumeroNecessidade", sql.NVarChar, linha["Nr. Necessidade"])
+      .input("DocumentoCompra", sql.NVarChar, linha["Doc. Compra"])
+      .input("Item", sql.NVarChar, linha["Item"])
+      .input("DescricaoPedido", sql.NVarChar, linha["Descrição Pedido"])
+      .input("CentroCusto", sql.NVarChar, linha["Centro de Custo"])
+      .input("IDFornecedor", sql.NVarChar, linha["ID Fornecedor"])
+      .input("NomeFornecedor", sql.NVarChar, linha["Nome Fornecedor"])
+      .input("QuantidadePedido", sql.Decimal(18, 2), converterNumero(linha["Quantidade Pedida"]))
+      .input("ValorPedido", sql.Decimal(18, 2), converterNumero(linha["Valor Pedido €"]))
+      .input("QuantidadeFaturada", sql.Decimal(18, 2), converterNumero(linha["Quantidade Faturada"]))
+      .input("ValorFaturado", sql.Decimal(18, 2), converterNumero(linha["Valor Faturado €"]))
+      .input("DataFatura", sql.DateTime, converterData(linha["Data fatura "]))
+      .input("OrigemFicheiro", sql.NVarChar, ficheiro)
+      .query(`
+        INSERT INTO NotaEncomenda (
+          DataCriacaoItem,
+          NumeroNecessidade,
+          DocumentoCompra,
+          Item,
+          DescricaoPedido,
+          CentroCusto,
+          IDFornecedor,
+          NomeFornecedor,
+          QuantidadePedido,
+          ValorPedido,
+          QuantidadeFaturada,
+          ValorFaturado,
+          DataFatura,
+          OrigemFicheiro
+        )
+        VALUES (
+          @DataCriacaoItem,
+          @NumeroNecessidade,
+          @DocumentoCompra,
+          @Item,
+          @DescricaoPedido,
+          @CentroCusto,
+          @IDFornecedor,
+          @NomeFornecedor,
+          @QuantidadePedido,
+          @ValorPedido,
+          @QuantidadeFaturada,
+          @ValorFaturado,
+          @DataFatura,
+          @OrigemFicheiro
+        )
+      `);
+
+    totalImportado++;
+  }
+
+  await pool.request()
+    .input("NomeFicheiro", sql.NVarChar, ficheiro)
+    .input("TipoFicheiro", sql.NVarChar, "NOTAS_ENCOMENDA")
+    .input("TotalLinhas", sql.Int, totalImportado)
+    .query(`
+      INSERT INTO ImportacaoFicheiro
+      (NomeFicheiro, TipoFicheiro, TotalLinhas)
+      VALUES
+      (@NomeFicheiro, @TipoFicheiro, @TotalLinhas)
+    `);
+
+  console.log(`Notas de encomenda importadas. Linhas: ${totalImportado}`);
+
+  return {
+    ficheirosImportados: 1,
+    ficheirosIgnorados: 0,
+    totalImportado
+  };
+}
+
+app.post("/importar-notas-encomenda", async (req, res) => {
+  try {
+    const resultado = await importarNotasEncomendaAutomaticamente();
+
+    res.json({
+      success: true,
+      message: "Notas de encomenda importadas com sucesso.",
+      ...resultado
+    });
+
+  } catch (error) {
+    console.error(error);
+
+    res.status(500).json({
+      success: false,
+      message: "Erro ao importar notas de encomenda."
+    });
+  }
+});
 
 app.listen(3000, async () => {
   console.log("Servidor ativo em http://localhost:3000");
 
   try {
-    const resultado = await importarMovimentosAutomaticamente();
-    console.log("Resultado importação automática:", resultado);
+    const resultadoMovimentos = await importarMovimentosAutomaticamente();
+    console.log("Resultado importação movimentos:", resultadoMovimentos);
+
+    const resultadoNotas = await importarNotasEncomendaAutomaticamente();
+    console.log("Resultado importação notas encomenda:", resultadoNotas);
+
   } catch (error) {
     console.error("Erro na importação automática:", error.message);
   }
