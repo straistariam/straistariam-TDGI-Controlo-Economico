@@ -43,6 +43,7 @@ form.addEventListener("submit", async (event) => {
       return;
     }
 
+    localStorage.setItem("id", data.user.Id);
     localStorage.setItem("nome", data.user.Nome);
     localStorage.setItem("perfil", data.user.Perfil);
     localStorage.setItem("email", data.user.Email);

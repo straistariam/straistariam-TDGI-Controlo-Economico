@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Controlo Económico | Análise 3D</title>
+
+  <link rel="stylesheet" href="../css/dashboard.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+</head>
+
+<body class="app-page">
+  <aside class="sidebar">
+    <img src="../assets/TDGI_color.png" class="logo" alt="TDGI">
+
+    <nav>
+      <a href="dashboard-gestor.html"><i class="fa-solid fa-house"></i> Pagina Inicial</a>
+      <a href="meus-contratos.html"><i class="fa-solid fa-file-contract"></i> Meus Contratos</a>
+      <a href="movimentos.html"><i class="fa-solid fa-receipt"></i> Movimentos</a>
+      <a href="notas-encomenda.html"><i class="fa-solid fa-file-invoice"></i> Notas de Encomenda</a>
+    </nav>
+
+    <div class="sidebar-footer">
+      <div class="sidebar-user">
+        <div class="sidebar-user-icon">
+          <i class="fa-solid fa-user"></i>
+        </div>
+        <div class="sidebar-user-info">
+          <strong id="userName"></strong>
+          <span id="userRole"></span>
+        </div>
+      </div>
+
+      <button id="logoutBtn" class="sidebar-logout-btn">
+        <i class="fa-solid fa-right-from-bracket"></i>
+      </button>
+    </div>
+  </aside>
+
+  <main class="main-content">
+    <header class="topbar">
+      <div>
+        <h1>Controlo Económico (REAL)</h1>
+        <p id="subtituloAnalise">A carregar análise...</p>
+      </div>
+
+      <button class="back-btn" onclick="history.back()">
+        <i class="fa-solid fa-arrow-left"></i> Voltar
+      </button>
+    </header>
+
+    <section class="summary-bar">
+      <div class="summary-item">
+        <span>Centro de Custo</span>
+        <strong id="centroCustoResumo">-</strong>
+      </div>
+
+      <div class="summary-item">
+        <span>Descrição</span>
+        <strong id="descricaoResumo">-</strong>
+      </div>
+
+      <div class="summary-item">
+        <span>Responsável</span>
+        <strong id="responsavelResumo">-</strong>
+      </div>
+
+      <div class="summary-item">
+        <span>Período</span>
+        <strong id="periodoResumo">-</strong>
+      </div>
+    </section>
+
+    <section class="analise-tabs">
+      <button class="tab-btn" onclick="abrirSAP()">CONTABILIDADE (SAP)</button>
+      <button class="tab-btn" onclick="abrirValoresEmFalta()">VALORES EM FALTA</button>
+      <button class="tab-btn active">CONTROLO ECONÓMICO (REAL)</button>
+    </section>
+
+    <section class="table-section">
+      <div class="section-header">
+        <div>
+          <h2>Contabilidade (SAP)</h2>
+          <p>Movimentos classificados que entram no controlo económico.</p>
+        </div>
+      </div>
+
+      <div id="listaSAPReal" class="movimentos-sap-list">
+        <p>A carregar movimentos...</p>
+    </div>
+
+    
+    </section>
+
+    <section class="table-section">
+      <div class="section-header">
+        <div>
+          <h2>Valores Acumulados Antecipados</h2>
+          <p>Movimentos marcados como valor antecipado, separados por fixos e variáveis.</p>
+        </div>
+      </div>
+
+      <div id="listaAcumuladosAntecipados" class="movimentos-sap-list">
+        <p>A carregar movimentos...</p>
+      </div>
+
+      
+    </section>
+
+    
+  </main>
+
+  <script src="../js/controlo-economico.js"></script>
+</body>
+</html>

@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Valores em Falta | Análise 3D</title>
+
+  <link rel="stylesheet" href="../css/dashboard.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+</head>
+
+<body class="app-page">
+  <aside class="sidebar">
+    <img src="../assets/TDGI_color.png" class="logo" alt="TDGI">
+
+    <nav>
+      <a href="dashboard-gestor.html"><i class="fa-solid fa-house"></i> Pagina Inicial</a>
+      <a href="meus-contratos.html"><i class="fa-solid fa-file-contract"></i> Meus Contratos</a>
+      <a href="movimentos.html"><i class="fa-solid fa-receipt"></i> Movimentos</a>
+      <a href="notas-encomenda.html"><i class="fa-solid fa-file-invoice"></i> Notas de Encomenda</a>
+    </nav>
+
+    <div class="sidebar-footer">
+      <div class="sidebar-user">
+        <div class="sidebar-user-icon">
+          <i class="fa-solid fa-user"></i>
+        </div>
+        <div class="sidebar-user-info">
+          <strong id="userName"></strong>
+          <span id="userRole"></span>
+        </div>
+      </div>
+
+      <button id="logoutBtn" class="sidebar-logout-btn">
+        <i class="fa-solid fa-right-from-bracket"></i>
+      </button>
+    </div>
+  </aside>
+
+  <main class="main-content">
+    <header class="topbar">
+      <div>
+        <h1>Valores em Falta</h1>
+        <p id="subtituloAnalise">A carregar análise...</p>
+      </div>
+
+      <button class="back-btn" onclick="history.back()">
+        <i class="fa-solid fa-arrow-left"></i> Voltar
+      </button>
+    </header>
+
+    <section class="summary-bar">
+      <div class="summary-item">
+        <span>Centro de Custo</span>
+        <strong id="centroCustoResumo">-</strong>
+      </div>
+
+      <div class="summary-item">
+        <span>Descrição</span>
+        <strong id="descricaoResumo">-</strong>
+      </div>
+
+      <div class="summary-item">
+        <span>Responsável</span>
+        <strong id="responsavelResumo">-</strong>
+      </div>
+
+      <div class="summary-item">
+        <span>Período</span>
+        <strong id="periodoResumo">-</strong>
+      </div>
+    </section>
+
+    <section class="cards">
+
+  <div class="card card-proveitos">
+    <span><i class="fa-solid fa-arrow-trend-up"></i></span>
+    <div>
+      <h3 id="proveitosPendentes">0,00 €</h3>
+      <p>Proveitos Pendentes</p>
+    </div>
+  </div>
+
+  <div class="card card-custos">
+    <span><i class="fa-solid fa-arrow-trend-down"></i></span>
+    <div>
+      <h3 id="custosPendentes">0,00 €</h3>
+      <p>Custos Pendentes</p>
+    </div>
+  </div>
+
+  <div class="card card-proveitos">
+    <span><i class="fa-solid fa-clock-rotate-left"></i></span>
+    <div>
+      <h3 id="proveitosAcumulados">0,00 €</h3>
+      <p>Proveitos Acumulados</p>
+    </div>
+  </div>
+
+  <div class="card card-custos">
+    <span><i class="fa-solid fa-clock-rotate-left"></i></span>
+    <div>
+      <h3 id="custosAcumulados">0,00 €</h3>
+      <p>Custos Acumulados</p>
+    </div>
+  </div>
+
+</section>
+
+    <section class="analise-tabs">
+      <button class="tab-btn" onclick="voltarSAP()">CONTABILIDADE (SAP)</button>
+      <button class="tab-btn active">VALORES EM FALTA</button>
+      <button class="tab-btn" onclick="abrirReal()">CONTROLO ECONÓMICO (REAL)</button>
+    </section>
+
+    <section class="table-section">
+      <div class="section-header">
+        <div>
+          <h2>Valores em Falta</h2>
+          <p>Registe valores que ainda não aparecem na contabilidade SAP.</p>
+        </div>
+
+        <button id="abrirFormValorFaltaBtn">
+          + Adicionar Valor
+        </button>
+      </div>
+
+      <div id="modalValorFalta" class="modal-valor-falta hidden">
+        <div class="modal-valor-box">
+          <button class="modal-close" type="button" onclick="fecharModalValorFalta()">
+            <i class="fa-solid fa-xmark"></i>
+          </button>
+
+          <h3>Valor em Falta</h3>
+          <p>Registe um valor que ainda não aparece na contabilidade SAP.</p>
+
+          <div id="formValorFalta" class="valor-falta-form">
+            <div class="valor-falta-grid">
+              <input id="vfDescricao" placeholder="Descrição">
+
+              <select id="vfGrupoConta">
+                <option value="">Grupo de conta</option>
+              </select>
+
+              <input id="vfValor" type="number" step="0.01" placeholder="Valor previsto (€)">
+
+              <input id="vfMesPrevisto" type="month">
+
+              <div class="radio-group">
+                <span>Tipo *</span>
+                <label><input type="radio" name="vfTipo" value="FIXO"> Fixo</label>
+                <label><input type="radio" name="vfTipo" value="VARIAVEL"> Variável</label>
+              </div>
+
+              <select id="vfOrigem">
+                <option value="">Origem</option>
+                <option value="Nota de Encomenda">Nota de Encomenda</option>
+                <option value="RH">RH</option>
+                <option value="Caixa Filial">Caixa Filial</option>
+                <option value="Manual">Manual</option>
+                <option value="Debito Interno">Debito Interno</option>
+              </select>
+
+              <textarea id="vfComentario" placeholder="Comentário"></textarea>
+            </div>
+
+            <button class="btn-guardar-valor-falta" onclick="guardarValorEmFalta()">
+              Guardar Valor em Falta
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <div id="listaValoresEmFalta" class="movimentos-sap-list">
+        <p>A carregar valores em falta...</p>
+      </div>
+    </section>
+  </main>
+
+  <div id="modalConfirmacao" class="modal-confirmacao hidden">
+    <div class="modal-box">
+        <button id="fecharModal" class="modal-close">
+        <i class="fa-solid fa-xmark"></i>
+        </button>
+
+        <div class="modal-top">
+        <div class="modal-icon">
+            <i class="fa-solid fa-triangle-exclamation"></i>
+        </div>
+
+        <h3 id="modalTitulo">Confirmar ação</h3>
+        </div>
+
+        <hr>
+
+        <p id="modalTexto"></p>
+
+        <hr>
+
+        <div class="modal-buttons">
+        <button id="btnCancelarModal">Cancelar</button>
+        <button id="btnConfirmarModal">Confirmar</button>
+        </div>
+    </div>
+    </div>
+
+    <div id="modalReclassificar" class="modal-valor-falta hidden">
+    <div class="modal-valor-box">
+
+        <button class="modal-close" type="button" onclick="fecharModalReclassificar()">
+            <i class="fa-solid fa-xmark"></i>
+        </button>
+
+        <h3>Reclassificar Valor</h3>
+        <p>Escolha o novo grupo de conta para este valor pendente.</p>
+
+        <input type="hidden" id="reclassificarValorId">
+
+        <!-- Resumo do valor -->
+        <div id="reclassificarResumo" class="reclassificar-resumo">
+            <div class="movimento-tags">
+                <span id="reclassificarEstado" class="tag"></span>
+                <span id="reclassificarNatureza" class="tag"></span>
+                <span id="reclassificarGrupoAtual" class="tag tag-grupo"></span>
+                <span id="reclassificarTipo" class="tag"></span>
+            </div>
+
+            <h4 id="reclassificarDescricao">Descrição</h4>
+
+            <div class="reclassificar-info">
+                <p><strong>Valor:</strong> <span id="reclassificarValor"></span></p>
+                <p><strong>Origem:</strong> <span id="reclassificarOrigem"></span></p>
+                <p><strong>Previsão:</strong> <span id="reclassificarPrevisao"></span></p>
+            </div>
+        </div>
+
+        <div class="valor-falta-form">
+
+            <select id="reclassificarGrupoConta">
+                <option value="">Novo grupo de conta</option>
+            </select>
+
+            <textarea
+                id="reclassificarComentario"
+                placeholder="Comentário da reclassificação"></textarea>
+
+            <button
+                class="btn-guardar-valor-falta"
+                onclick="guardarReclassificacao()">
+                Guardar Reclassificação
+            </button>
+
+        </div>
+
+    </div>
+</div>
+
+  <script src="../js/valores-em-falta.js"></script>
+</body>
+</html>

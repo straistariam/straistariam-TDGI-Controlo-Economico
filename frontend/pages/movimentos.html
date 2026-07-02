@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dashboard Gestor | Análise 3D</title>
+  <link rel="stylesheet" href="../css/dashboard.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+</head>
+
+<body>
+  <aside class="sidebar">
+  <img src="../assets/TDGI_color.png" class="logo" alt="TDGI">
+
+  <nav>
+    <a href="dashboard-gestor.html"><i class="fa-solid fa-house"></i> Pagina Inicial</a>
+    <a  href="meus-contratos.html"><i class="fa-solid fa-file-contract"></i> Meus Contratos</a>
+    <a class="active" href="movimentos.html"><i class="fa-solid fa-receipt"></i> Movimentos</a>
+    <a href="notas-encomenda.html"><i class="fa-solid fa-file-invoice"></i> Notas de Encomenda</a>
+  </nav>
+
+  <div class="sidebar-footer">
+  <div class="sidebar-user">
+    <div class="sidebar-user-icon">
+      <i class="fa-solid fa-user"></i>
+    </div>
+
+    <div class="sidebar-user-info">
+      <strong id="userName"></strong>
+      <span id="userRole"></span>
+    </div>
+  </div>
+
+  <button id="logoutBtn" class="sidebar-logout-btn">
+    <i class="fa-solid fa-right-from-bracket"></i>
+  </button>
+</div>
+</aside>
+
+<main class="main-content">
+  <header class="topbar">
+    <div>
+      <h1>Movimentos Contabilísticos</h1>
+    </div>
+  </header>
+
+  <section class="current-analyses-section">
+  <div class="filters">
+    <select id="contratoSelect"></select>
+    <select id="anoSelect"></select>
+    <select id="mesSelect"></select>
+
+    <select id="tipoSelect">
+        <option value="">Todos</option>
+        <option value="CUSTO">Custos</option>
+        <option value="PROVEITO">Proveitos</option>
+        <option value="SEM_CLASSIFICACAO">Sem classificação</option>
+    </select>
+
+    <select id="grupoSelect">
+      <option value="">Todos os grupos</option>
+      <option value="03">Outros proveitos operacionais</option>
+      <option value="05">Matérias primas</option>
+      <option value="07">Equipamento</option>
+      <option value="08">Forn. serviços externos</option>
+      <option value="11">Pessoal</option>
+      <option value="13">Outros custos operacionais</option>
+      <option value="14">Custos TI</option>
+      <option value="15">Outros EE</option>
+    </select>
+
+    <button id="pesquisarBtn">Pesquisar</button>
+  </div>
+
+  <div id="listaMovimentos" class="analises-list">
+    <p>Selecione os filtros para consultar os movimentos.</p>
+  </div>
+</section>
+</main>
+
+<script src="../js/movimentos.js"></script>
+</body>
+</html>

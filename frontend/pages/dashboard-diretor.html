@@ -8,75 +8,36 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
 </head>
 <body>
+
   <aside class="sidebar">
-    <img src="../assets/TDGI_color.png" class="logo" alt="TDGI">
-    <nav>
-      <a class="active"><i class="fa-solid fa-chart-line"></i> Dashboard</a>
-      <a><i class="fa-solid fa-building"></i> Direção</a>
-      <a><i class="fa-solid fa-check-double"></i> Validações</a>
-      <a><i class="fa-solid fa-comment-dots"></i> Comentário final</a>
-      <a><i class="fa-solid fa-clock-rotate-left"></i> Histórico</a>
-    </nav>
-  </aside>
+  <img src="../assets/TDGI_color.png" class="logo" alt="TDGI">
 
-  <main class="main-content">
-    <header class="topbar">
-      <div>
-        <h1>Dashboard Diretor</h1>
-        <p>Validação dos contratos e acompanhamento da direção.</p>
-      </div>
+  <nav>
+    <a class="active"><i class="fa-solid fa-file-contract"></i> Direção</a>
+    <a><i class="fa-solid fa-comment-dots"></i> Comentário final</a>
+    <a><i class="fa-solid fa-clock-rotate-left"></i> Histórico</a>
+  </nav>
 
-      <div class="user-box">
-        <div class="user-info">
-          <strong id="userName">Utilizador</strong>
-          <span id="userRole">DIRETOR</span>
-        </div>
-        <button id="logoutBtn" class="logout-btn">Sair</button>
-      </div>
-    </header>
+  <div class="sidebar-footer">
+  <div class="sidebar-user">
+    <div class="sidebar-user-icon">
+      <i class="fa-solid fa-user"></i>
+    </div>
 
-    <section class="cards">
-      <div class="card"><span><i class="fa-solid fa-file-contract"></i></span><div><h3>12</h3><p>Contratos da direção</p></div></div>
-      <div class="card"><span><i class="fa-solid fa-hourglass-half"></i></span><div><h3>4</h3><p>A aguardar validação</p></div></div>
-      <div class="card"><span><i class="fa-solid fa-circle-check"></i></span><div><h3>8</h3><p>Validados</p></div></div>
-      <div class="card"><span><i class="fa-solid fa-chart-simple"></i></span><div><h3>3</h3><p>Com desvios</p></div></div>
-    </section>
+    <div class="sidebar-user-info">
+      <strong id="userName"></strong>
+      <span id="userRole">teste</span>
+    </div>
+  </div>
 
-    <section class="table-section">
-      <div class="section-header">
-        <h2>Contratos para validação</h2>
-        <button>Comentário final</button>
-      </div>
+  <button id="logoutBtn" class="sidebar-logout-btn">
+    <i class="fa-solid fa-right-from-bracket"></i>
+    Sair
+  </button>
+</div>
+</aside>
 
-      <table>
-        <thead>
-          <tr>
-            <th>Código</th>
-            <th>Contrato</th>
-            <th>Gestor</th>
-            <th>Estado</th>
-            <th>Margem</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>CT-003</td>
-            <td>Facility Management Norte</td>
-            <td>Ana-Maria</td>
-            <td><span class="status pendente">Por validar</span></td>
-            <td>18%</td>
-          </tr>
-          <tr>
-            <td>CT-004</td>
-            <td>Serviços Integrados Porto</td>
-            <td>Ricardo Caetano</td>
-            <td><span class="status desvio">Com desvio</span></td>
-            <td>11%</td>
-          </tr>
-        </tbody>
-      </table>
-    </section>
-  </main>
+  
 
   <script src="../js/dashboard.js"></script>
 </body>

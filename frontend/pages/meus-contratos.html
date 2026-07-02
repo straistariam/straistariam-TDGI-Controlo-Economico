@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dashboard Gestor | Análise 3D</title>
+
+  <link rel="stylesheet" href="../css/dashboard.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+</head>
+
+<body>
+
+  <aside class="sidebar">
+    <img src="../assets/TDGI_color.png" class="logo" alt="TDGI">
+
+    <nav>
+      <a href="dashboard-gestor.html">
+        <i class="fa-solid fa-house"></i> Pagina Inicial
+      </a>
+
+      <a class="active" href="meus-contratos.html">
+        <i class="fa-solid fa-file-contract"></i> Meus Contratos
+      </a>
+
+      <a href="movimentos.html">
+        <i class="fa-solid fa-receipt"></i> Movimentos
+      </a>
+
+      <a href="notas-encomenda.html">
+        <i class="fa-solid fa-file-invoice"></i> Notas de Encomenda
+      </a>
+    </nav>
+
+    <div class="sidebar-footer">
+      <div class="sidebar-user">
+        <div class="sidebar-user-icon">
+          <i class="fa-solid fa-user"></i>
+        </div>
+
+        <div class="sidebar-user-info">
+          <strong id="userName"></strong>
+          <span id="userRole"></span>
+        </div>
+      </div>
+
+      <button id="logoutBtn" class="sidebar-logout-btn">
+        <i class="fa-solid fa-right-from-bracket"></i>
+      </button>
+    </div>
+  </aside>
+
+  <main class="main-content">
+
+    <header class="topbar">
+      <div>
+        <h1>Meus Contratos</h1>
+        <p>
+          Consulte os contratos atuais e os contratos analisados em meses anteriores.
+        </p>
+      </div>
+    </header>
+
+    <section class="current-analyses-section">
+
+      <div class="filters">
+
+        <select id="anoFiltro">
+          <option value="">Todos os anos</option>
+        </select>
+
+        <select id="mesFiltro">
+          <option value="">Todos os meses</option>
+        </select>
+
+        <input
+          type="text"
+          id="pesquisaContrato"
+          placeholder="Pesquisar por nome..."
+        >
+
+        <button id="filtrarBtn">
+          Filtrar
+        </button>
+
+      </div>
+
+      <div id="historicoContratos" class="analises-list">
+        <p>A carregar contratos...</p>
+      </div>
+
+    </section>
+
+  </main>
+
+  <script src="../js/meus-contratos.js"></script>
+
+</body>
+</html>

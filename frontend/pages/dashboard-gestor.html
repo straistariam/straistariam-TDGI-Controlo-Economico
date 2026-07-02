@@ -7,75 +7,114 @@
   <link rel="stylesheet" href="../css/dashboard.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
 </head>
+
 <body>
   <aside class="sidebar">
-    <img src="../assets/TDGI_color.png" class="logo" alt="TDGI">
-    <nav>
-      <a class="active"><i class="fa-solid fa-chart-line"></i> Dashboard</a>
-      <a><i class="fa-solid fa-file-contract"></i> Meus contratos</a>
-      <a><i class="fa-solid fa-table"></i> Mapa económico</a>
-      <a><i class="fa-solid fa-clock-rotate-left"></i> Histórico</a>
-    </nav>
-  </aside>
+  <img src="../assets/TDGI_color.png" class="logo" alt="TDGI">
 
-  <main class="main-content">
-    <header class="topbar">
+  <nav>
+    <a class="active" href="dashboard-gestor.html"><i class="fa-solid fa-house"></i> Pagina Inicial</a>
+    <a  href="meus-contratos.html"><i class="fa-solid fa-file-contract"></i> Meus Contratos</a>
+    <a href="movimentos.html"><i class="fa-solid fa-receipt"></i> Movimentos</a>
+    <a href="notas-encomenda.html"><i class="fa-solid fa-file-invoice"></i> Notas de Encomenda</a>
+  </nav>
+
+  <div class="sidebar-footer">
+  <div class="sidebar-user">
+    <div class="sidebar-user-icon">
+      <i class="fa-solid fa-user"></i>
+    </div>
+
+    <div class="sidebar-user-info">
+      <strong id="userName"></strong>
+      <span id="userRole"></span>
+    </div>
+  </div>
+
+  <button id="logoutBtn" class="sidebar-logout-btn">
+    <i class="fa-solid fa-right-from-bracket"></i>
+  </button>
+</div>
+</aside>
+
+<main class="main-content">
+  <header class="topbar">
+    <div>
+      <h1>Controlo Económico Mensal</h1>
+    </div>
+  </header>
+
+  <section class="summary-bar">
+  <div class="summary-item">
+    <span>Centro de Custo</span>
+    <strong id="centroCustoGestor">-</strong>
+  </div>
+
+  <div class="summary-item">
+    <span>Período de Análise</span>
+    <strong id="periodoAnalise">-</strong>
+  </div>
+
+  <div class="summary-item">
+    <span>Prazo de Submissão</span>
+    <strong id="prazoSubmissao">-</strong>
+  </div>
+
+  <div class="summary-item">
+    <span>Última Importação</span>
+    <strong id="ultimaImportacao">-</strong>
+  </div>
+</section>
+
+  <section class="cards">
+    <div class="card">
+      <span><i class="fa-solid fa-file-contract"></i></span>
       <div>
-        <h1>Dashboard Gestor</h1>
-        <p>Controlo mensal dos contratos sob a sua responsabilidade.</p>
+        <h3 id="totalContratos">0</h3>
+        <p>Contratos Atribuídos</p>
       </div>
+    </div>
 
-      <div class="user-box">
-        <div class="user-info">
-          <strong id="userName">Utilizador</strong>
-          <span id="userRole">GESTOR</span>
-        </div>
-        <button id="logoutBtn" class="logout-btn">Sair</button>
+    <div class="card">
+      <span><i class="fa-solid fa-pen-to-square"></i></span>
+      <div>
+        <h3 id="totalEmAnalise">0</h3>
+        <p>Em Análise</p>
       </div>
-    </header>
+    </div>
 
-    <section class="cards">
-      <div class="card"><span><i class="fa-solid fa-file-contract"></i></span><div><h3>5</h3><p>Contratos atribuídos</p></div></div>
-      <div class="card"><span><i class="fa-solid fa-pen-to-square"></i></span><div><h3>2</h3><p>Em análise</p></div></div>
-      <div class="card"><span><i class="fa-solid fa-paper-plane"></i></span><div><h3>3</h3><p>Submetidos</p></div></div>
-      <div class="card"><span><i class="fa-solid fa-triangle-exclamation"></i></span><div><h3>1</h3><p>Com desvios</p></div></div>
-    </section>
-
-    <section class="table-section">
-      <div class="section-header">
-        <h2>Meus contratos</h2>
-        <button>Iniciar análise</button>
+    <div class="card">
+      <span><i class="fa-solid fa-paper-plane"></i></span>
+      <div>
+        <h3 id="totalSubmetidos">0</h3>
+        <p>Submetidos</p>
       </div>
+    </div>
 
-      <table>
-        <thead>
-          <tr>
-            <th>Código</th>
-            <th>Contrato</th>
-            <th>Centro de Custo</th>
-            <th>Estado</th>
-            <th>Mês</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>CT-001</td>
-            <td>Manutenção Edifício Sede</td>
-            <td>CC-1001</td>
-            <td><span class="status pendente">Em análise</span></td>
-            <td>Junho 2026</td>
-          </tr>
-          <tr>
-            <td>CT-002</td>
-            <td>Serviços Técnicos Lisboa</td>
-            <td>CC-1002</td>
-            <td><span class="status validado">Submetido</span></td>
-            <td>Junho 2026</td>
-          </tr>
-        </tbody>
-      </table>
-    </section>
-  </main>
+    <div class="card">
+      <span><i class="fa-solid fa-circle-notch"></i></span>
+      <div>
+        <h3 id="totalPorIniciar">0</h3>
+        <p>Por Iniciar</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="current-analyses-section">
+  <div class="section-header">
+    <div>
+      <h2>Contratos a Analisar no Período Atual</h2>
+      
+    </div>
+  </div>
+
+  <div id="analisesPeriodoAtual" class="analises-list">
+    <p>A carregar análises...</p>
+  </div>
+</section>
+
+  
+</main>
 
   <script src="../js/dashboard.js"></script>
 </body>
